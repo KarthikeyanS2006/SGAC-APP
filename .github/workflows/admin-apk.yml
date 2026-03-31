@@ -2,12 +2,12 @@ name: Build Admin APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
     paths:
       - 'admin-mobile/**'
       - 'js/site-data.js'
   pull_request:
-    branches: [main]
+    branches: [main, master]
     paths:
       - 'admin-mobile/**'
       - 'js/site-data.js'
@@ -47,11 +47,18 @@ jobs:
           cp admin-mobile/admin-login.html admin-mobile/app/src/main/assets/
           cp -r admin-mobile/js admin-mobile/app/src/main/assets/
 
-      - name: Build debug APK
+      - name: Make Gradle wrapper executable
         working-directory: admin-mobile
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+
+      - name: Build debug APK
+        working-directory: admin-mobile
+        env:
+          ANDROID_HOME: /opt/android-sdk
+          ANDROID_SDK_ROOT: /opt/android-sdk
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
