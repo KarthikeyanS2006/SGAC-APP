@@ -1,0 +1,197 @@
+const fs = require('fs');
+const path = require('path');
+
+// Modern template for activity pages
+function createActivityPage(config) {
+    const { name, title, icon, intro, activities, coordinators, gallery } = config;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="../img/fav_icon.png" type="image/png">
+  <title>${title} | Sethupathy Government Arts College</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Open+Sans:wght@400;600;700&family=Roboto:wght@300;400;500;700&family=Raleway:wght@500;600;700&family=Montaga&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3ee7079dc6.js" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="../css/modern-variables.css">
+  <link rel="stylesheet" href="../css/modern-reset.css">
+  <link rel="stylesheet" href="../css/modern-style.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mystyle.css">
+  
+  <style>
+    .btn:focus, .btn:active, button:focus, button:active { outline: none !important; box-shadow: none !important; }
+    #image-gallery .modal-footer { display: block; }
+    .thumb { margin-top: 15px; margin-bottom: 15px; }
+  </style>
+</head>
+
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div>
+        <a href="mailto:contact@sgacrmd.edu.in"><i class="fa fa-envelope"></i> contact@sgacrmd.edu.in</a>
+        <a href="tel:+914567221343"><i class="fa fa-phone"></i> +91-4567-221343</a>
+      </div>
+      <div>
+        <a href="../index.html"><i class="fa fa-home"></i> Home</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-logo">
+          <a href="../index.html"><img src="../img/tamil_logo.png" alt="Government Logo"></a>
+        </div>
+        <div class="header-title">
+          <h1 class="college-name">Sethupathy Government Arts College, Ramanathapuram-623501</h1>
+          <p class="college-name-tamil">செதுபாதி அரசு கலை கல்லூரி, இராமநாதபுரம்-623501</p>
+          <p class="college-subtitle">(Accredited with 'B' Grade by NAAC)</p>
+          <p class="college-subtitle">Affiliated to Alagappa University, Karaikudi</p>
+        </div>
+        <div class="header-logo">
+          <a href="../index.html"><img src="../img/logo_new1.png" alt="College Logo"></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="container">
+      <button class="mobile-menu-toggle" aria-label="Toggle Navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link">About Us <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../History.html" class="nav-link">History</a></li>
+            <li><a href="../Vision.html" class="nav-link">Vision & Mission</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="../index.html#contactarea" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="content-section" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); padding: var(--space-2xl) 0;">
+    <div class="container">
+      <div style="text-align: center; color: var(--color-white);">
+        <h1 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-md); color: var(--color-white);">
+          <i class="fas fa-${icon}" style="margin-right: var(--space-md); color: var(--color-gold);"></i>
+          ${title}
+        </h1>
+        <nav style="display: flex; justify-content: center; gap: var(--space-sm); font-size: var(--font-size-base);">
+          <a href="../index.html" style="color: var(--color-white); opacity: 0.9;">Home</a>
+          <span style="opacity: 0.6;">/</span>
+          <span style="opacity: 0.9;">Activities</span>
+          <span style="opacity: 0.6;">/</span>
+          <span style="font-weight: var(--font-weight-semibold);">${name}</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" style="padding-top: 0;">
+    <div class="container">
+      <div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-info-circle" style="color: var(--color-gold);"></i> Introduction
+        </h3>
+        ${intro}
+      </div>
+
+      ${activities ? `<div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-list-check" style="color: var(--color-gold);"></i> Activities
+        </h3>
+        ${activities}
+      </div>` : ''}
+
+      ${coordinators ? `<div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-users" style="color: var(--color-gold);"></i> Programme Officers
+        </h3>
+        ${coordinators}
+      </div>` : ''}
+
+      ${gallery ? `<div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-photo-video" style="color: var(--color-gold);"></i> Gallery
+        </h3>
+        <div class="row">
+          ${gallery}
+        </div>
+      </div>` : ''}
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="../History.html">History</a>
+          <a href="../Vision.html">Vision & Mission</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>Ramanathapuram<br>Tamil Nadu - 623501</p>
+          <p>Phone: +91-4567-221343</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> Sethupathy Government Arts College. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/jquery-3.2.1.min.js"></script>
+  <script src="../js/modern.js"></script>
+</body>
+</html>`;
+}
+
+// NSS Page
+const nssPage = createActivityPage({
+    name: 'NSS',
+    title: 'National Service Scheme',
+    icon: 'hands-helping',
+    intro: `<p style="text-align: justify; line-height: 1.8;">National Service Scheme is an essential component which plays an important role in the Educational system. The NSS unit of our college functions in an effective manner and offers an opportunity for all the volunteers to serve selflessly to the society in general and college in particular. There are three NSS units functioning actively in this college. Each unit has 100 volunteers.</p>
+  <p style="text-align: justify; line-height: 1.8; margin-top: var(--space-md);">The general objective of NSS "Education through community service" is realized through regular activities carried out throughout the year and a special camp at the end of the academic year.</p>`,
+    activities: `<ul style="margin-left: 20px; line-height: 2;">
+    <li>National Deworming Day</li>
+    <li>National Unity Day</li>
+    <li>World Population Control Day Rally</li>
+    <li>National Voters Day Rally and Competitions</li>
+    <li>Dengue Awareness Programme and Rally</li>
+    <li>Eye Camp & Dental Camp</li>
+    <li>Mental Health Programme</li>
+    <li>National Yoga Day</li>
+    <li>Youth Empowerment Programme</li>
+    <li>Tree Plantation & Campus Cleaning</li>
+    <li>NSS Day Celebration</li>
+  </ul>`,
+    coordinators: `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-xl);">
+    <div style="text-align: center;">
+      <p><strong>D. Jasmine Guna Sundari</strong></p>
+      <p>Assistant Professor<br>Department of Computer Science<br>Unit-20</p>
+    </div>
+    <div style="text-align: center;">
+      <p><strong>Dr. S. V Murugesan</strong></p>
+      <p>Head and Associate Professor<br>Department of Commerce<br>Unit-21</p>
+    </div>
+  </div>`,
+    gallery: null
+});
+
+console.log('Creating NSS.html...');
+fs.writeFileSync('d:/Karthikeyan S/College Website/2nd time Upgrade/Activities/Nss.html', nssPage);
+console.log('✓ NSS.html created!');

@@ -1,0 +1,864 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+html{
+  scroll-behavior: smooth;
+}
+
+
+
+.carousel-item {
+   
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: auto;
+  }
+
+
+
+  .caret{
+    display: inline-block;
+width: 0;
+height: 0;
+margin-left: 2px;
+vertical-align: middle;
+border-top: 4px dashed;
+border-top: 4px solid\9;
+border-right: 4px solid transparent;
+border-left: 4px solid transparent;
+  }
+  .footer-area .footer-topside a{
+    color:  #fb7272;
+text-decoration: none;
+background-color: transparent;
+  }
+
+  ul.breadcrumb {
+    padding: 10px 16px;
+    margin-left: 100px;
+    list-style: none;
+    background-color: #fff;
+    font-family: 'Arvo', serif;
+  }
+  ul.breadcrumb li {
+    display: inline;
+    font-size: 14px;
+  }
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+  ul.breadcrumb li a {
+    color: #fb7272;
+    text-decoration: none;
+  }
+  ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+  }
+
+  .newsevent{
+    font-size: 14px;
+line-height: 29px;
+border: 0px;
+width: 100%;
+font-weight: 300;
+color: #fff;
+padding-left: 20px;
+
+z-index: 0;
+background: #002347;
+  }
+  .listout {
+    background-color:#fbfbfb00;
+    padding: 30px 10px 30px 10px;
+    font-size: 17px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* font-family: 'Arvo', serif; */
+    border-bottom: 1px dashed;
+}
+
+.mymain_title {
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+.mymain_title h2{
+  font-family: 'Raleway', sans-serif;
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+ 
+}
+
+.mymain_title p{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 17px;
+}
+
+@media (max-width: 991px) {
+  .mymain_title {
+    text-align: center;
+  margin-bottom: 10px;
+  /* margin-top: 150px; */
+  }
+}
+
+@media (max-width: 575px) {
+  .mymain_title {
+    text-align: center;
+  margin-bottom: 10px;
+  margin-top: 50px; 
+  }
+  }
+
+.mygenric-btn {
+  display: inline-block;
+  outline: none;
+  line-height: 40px;
+  padding: 0 30px;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+.mygenric-btn.primary {
+  color: #fff;
+  background: #f8b600;
+  border: 1px solid transparent;
+}
+.mygenric-btn .radius {
+  border-radius: 3px;
+}
+.myprimary-border {
+  background: transparent;
+  border: 1px solid #002347;
+}
+.blackcolor{
+  color: #000;
+}
+.feature_area_bottom {
+  padding-bottom: 70px;
+}
+
+.section_gap_mytop {
+  padding-top: 50px; }
+  @media (max-width: 991px) {
+    .section_gap_mytop {
+      padding-top: 20px; }
+}
+.section_min
+{
+  min-height: 850px;
+}
+.header_area .container .collegename 
+{
+   /* margin-left: 10%;  */
+  margin-top: 30px;
+  font-variant: small-caps;
+  font-weight: bold;
+
+  font-size: 23px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  /* font-family: 'Raleway', sans-serif; */
+  color: white;
+}
+@media (max-width: 991px) {
+  .header_area .container .collegename {
+    font-size: 21px;
+    /* margin-left: 10%;  */
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+/* college tamil */
+.header_area .container .collegetamil 
+{
+   /* margin-left: 10%;  */
+  margin-top: 10px;
+font-weight: bold;
+  font-size: 22px;
+
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  /* font-family: 'Raleway', sans-serif; */
+  color: white;
+}
+@media (max-width: 991px) {
+  .header_area .container .collegetamil {
+    font-size: 18px;
+    /* margin-left: 10%;  */
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+
+
+
+
+.header_area .container .collegesub 
+{
+   /* margin-left: 10%;  */
+  /* margin-top: 30px; */
+  /* font-variant: small-caps; */
+  font-size: 18px;
+  /* font-family: 'Raleway', sans-serif; */
+  font-family: 'Questrial', sans-serif;
+  color: white;
+  
+  font-weight:bold;
+}
+@media (max-width: 991px) {
+  .header_area .container .collegesub {
+    font-size: 16px;
+    /* margin-left: 10%;  */
+    /* margin-top: 30px; */
+  }
+}
+
+
+
+
+
+@media (max-width: 991px) {
+.container .row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+}
+@media (max-width: 991px) {
+  .footer-area .container{
+    padding-right: 0px;
+  }
+  }
+    .feature_area .section_gap_tophuge .container .mymain_title{
+      margin-bottom: 30px;
+    }
+
+    .table tbody tr .td-duration{
+      text-align: center;
+    }
+
+    .table{
+      /* font-family: 'Arvo', serif; */
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+  .menutitle{
+    text-align: center;
+    /* margin-top: 15px; */
+    padding:15px;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: underline;
+    font-variant: small-caps;
+    color: #e3d287;
+  }
+
+  .logotitle{
+    /* float:right; */
+  }
+
+  @media (max-width: 991px) {
+    .logotitle{
+      float:left;
+      margin-left: 33%;
+      width:100px;
+      height: 100px;
+    }
+    }
+   
+    .contact_info{
+      font-family: 'Arvo', serif;
+    }
+ 
+    captionn {
+      font-family: 'Arvo', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: #ff000085;
+  }
+ 
+  .tblimg{
+    width:100%;
+    /* font-family: 'Raleway', sans-serif; */
+    font-size: 17px;
+    margin-left: 20px;
+  }
+
+  .tblimg td{
+    padding:10px;
+  }
+
+  .myfav{
+    font-family: 'Raleway', sans-serif;
+    font-variant: small-caps;
+    color: #002347;
+    font-weight: 700;
+  }
+
+  .para_style{
+    text-indent: 30px;
+    text-align: justify;
+    font-size: 17px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+  .sixteen
+  {
+    font-size: 16px;
+  }
+  .mycontainer {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50%;
+    margin-left: 20%;
+    padding: 16px;
+    font-family: 'Raleway', sans-serif;
+}
+  .mycontainer span {
+    font-size: 18px;
+    margin-right: 15px;
+    color: #fb7272;
+}
+.mycontainer img {
+  float: left;
+  margin-right: 10px;
+  border-radius: 20%;
+}
+
+
+.mycontainer p
+{
+  margin-bottom: 0rem;
+
+}
+.blackcolor :hover{
+  color:#002347;
+}
+
+ul.crumb{
+  padding: 10px 16px;
+margin-left: 144px;
+list-style: none;
+background-color: #fff;
+font-family: 'Arvo', serif;
+}
+.crumb{
+  display: -ms-flexbox;
+display: flex;
+-ms-flex-wrap: wrap;
+flex-wrap: wrap;
+padding: .75rem 1rem;
+margin-bottom: 1rem;
+list-style: none;
+background-color: #e9ecef;
+border-radius: .25rem;
+}
+ul.crumb li
+{
+display: inline;
+font-size: 14px;
+}
+
+/* portfolio */
+/* Portfolio */
+#portfolio {
+  padding: 30px 0px 40px 0px;
+  overflow: hidden;
+}
+
+#portfolio ul.controls {
+  padding: 0px 0 20px 2px;
+  overflow: hidden;
+  margin: 20px 0;
+  border-bottom: #fb7272 solid 2px;
+}
+
+#portfolio ul.controls li {
+  float: left;
+  color: #000;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+
+#portfolio ul.controls li:hover, #portfolio ul.controls li.active {
+  padding: 4px 15px;
+  color: #fb7272;
+  margin: 0 -1px;
+  border: 1px solid #fb7272;
+}
+
+#portfolio ul#Grid {
+  margin: 0 0 30px 0;
+  padding: 0;
+  position: relative;
+}
+
+#portfolio ul#Grid li {
+  padding: 0 1px 1px 0;
+  margin: 0;
+  display: none;
+  position: relative;
+}
+
+#portfolio ul#Grid li a {
+  display: block;
+  position: relative;
+  color: #fff;
+}
+
+#portfolio ul#Grid li span.overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  visibility: hidden;
+  text-indent: -9999px;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  background: #000;
+}
+
+#portfolio ul#Grid li:hover span.overlay {
+  visibility: visible;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+}
+
+#portfolio ul#Grid span.text {
+  padding: 0px 10px;
+  height: 0;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  z-index: 10;
+  overflow: hidden;
+  font-size: 22px;
+  font-weight: 400;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: #FFF;
+  line-height: 30px;
+  background: #fb7272;
+}
+
+#portfolio ul#Grid li:hover span.text {
+  background: #fb7272;
+  opacity: 0.9;
+}
+
+#portfolio ul#Grid span.text span {
+  color: #f9f9f9;
+  font-weight: 400;
+  display: block;
+  font-size: 14px;
+  text-transform: none;
+  line-height: 22px;
+}
+
+#portfolio ul#Grid span.text:after {
+  border-color: rgba(63, 141, 191, 0);
+  border-bottom-color: #fb7272;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+#portfolio ul#Grid span.text:before {
+  border-color: rgba(63, 141, 191, 0);
+  border-bottom-color: #fb7272;
+  border-width: 16px;
+  margin-left: -16px;
+}
+
+#portfolio ul#Grid li:hover span.text {
+  padding: 10px 10px;
+  height: auto;
+  overflow: visible;
+  text-decoration: none;
+}
+
+.no-margin {
+  position: relative;
+  margin: 0;
+}
+
+.brdr{
+  border-radius: 100px;
+}
+.linkcolor{
+  color:#1d7b93;
+}
+.mrgnfty{
+  margin-top: 40px;
+}
+.poiret{
+  font-family: 'Slabo 27px', serif;
+  text-align: center;
+  /* font-family: 'Poiret One', cursive; */
+}
+.poiret .syl a {
+  color:red;
+}
+
+.poiret .upl p {
+  font-size: 16px;
+  
+ 
+}
+
+@font-face {
+  font-family: "Bamini Tamil"; src: url("http://www.jagatheswara.com/downloads/Bamini.ttf");}
+  .tamilfont{
+  font-family: "Bamini Tamil", Times, serif;
+  }
+
+
+.mypoiret{
+  font-family: 'Times New Roman', Times, serif
+  text-align: center;
+  /* font-family: 'Poiret One', cursive; */
+}
+.mypoiret .syl a {
+  color:red;
+}
+
+.mypoiret .upl p {
+  font-size: 16px;
+  
+ 
+}
+
+.point{
+  font-family: 'Slabo 27px', serif;
+ 
+  /* font-family: 'Poiret One', cursive; */
+}
+
+.footer-area {
+  background: #002347;
+  font-family: 'Montaga', serif;
+}
+.footer-area .footer-topside {
+  margin-top: 30px;
+}
+
+
+.tickercolor{
+  color:white;
+  font-weight: bold;
+  font-size: 17px;
+}
+.tickercolor :hover {
+  color:red;
+}
+
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color:rgb(106, 36, 66);
+  height: 1000px;
+  width:12%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: white;
+  padding: 22px 16px;
+  width: 100%;
+  /* border: none; */
+  /* border-bottom: 1px solid white;
+  border-radius: 15px 0px 0px 15px; */
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+  margin-top: 1px;
+  
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: rgba(221, 221, 221, 0.301);
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: rgba(255, 165, 165, 0.116);
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 88%;
+  border-left: none;
+  height: 1000px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  overflow: scroll;
+  
+}
+
+.footerr{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #002347;
+font-family: 'Montaga', serif;
+}
+
+.footerr .footer-topside a {
+    color: #fb7272;
+    text-decoration: none;
+    background-color: transparent;
+}
+.footerr .footer-topside  {
+  margin-top: 10px;
+}
+
+
+@media (max-width: 991px) {
+  .tab{
+    width:15%;
+    font-size:10px;
+  }
+
+  .tabcontent {
+   
+    width: 85%;
+    height:900px;
+   
+  }
+  .tab button {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 15px;
+    padding-left:3px;
+  }
+  
+  }
+
+
+
+
+@media (max-width: 575px) {
+
+
+  .tab{
+    width:25%;
+    font-size:10px;
+  }
+
+  .tabcontent {
+   
+    width: 75%;
+   
+  }
+  .tab button {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 12px;
+    padding-left:10px;
+  }
+
+  .navbar-toggler {
+    /* border: none;
+    border-radius: 0px;
+    padding: 0px;
+    cursor: pointer;
+    margin-top: 27px;
+    margin-bottom: 23px; */
+    margin-left:40px;
+  }
+
+
+  .header_area .container .collegename 
+{
+  font-size: 20px;
+  margin-left:30px;
+}
+.header_area .container .collegetamil 
+{
+  font-size: 16px;
+  margin-left:30px;
+}
+.header_area .container .collegesub 
+{
+  
+  font-size: 12px;
+  font-family: 'Questrial', sans-serif;
+  color: white;
+  
+  font-weight:bold;
+}
+
+/* .marginlft{
+  margin-left:140px;
+  margin-right: 10px;
+} */
+
+.mymain_title h2{
+  font-size:22px
+}
+
+
+.albery-container, .pagination-container {
+		overflow: scroll;
+}
+
+  
+
+}
+
+
+
+  .marginlft{
+    margin: 10px;
+  }
+
+
+  .gal_margin{
+  margin-left:100px;
+  margin-top: 100px;
+  }
+
+
+
+
+/* Position the image container (needed to position the left and right arrows) */
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  /* position: absolute; */
+  top: 40%;
+  width: auto;
+  padding: 46px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 8px 12px;
+  position: relative;
+  top: 50px;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #514867;
+  padding: 2px 16px;
+  color: white;
+  width: 60%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+  padding: 5px;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+.myaccordion {
+  background-color: #ffffff;
+  color: #444;
+  cursor: pointer;
+  padding: 14px;
+  width: 50%;
+  border-bottom: 2px solid #0a0a0a;
+  text-align: left;
+  outline: none;
+  font-size: 25px;
+  transition: 0.4s;
+  box-shadow:1px solid #fcfcfc;
+  font-family: Arvo, Arial, sans-serif;
+}
+
+.myactive, .myaccordion:hover {
+  background-color:rgba(222, 233, 212, 0.322); 
+}
+
+.mypanel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+
+

@@ -1,0 +1,53 @@
+name: Build Admin APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'admin-mobile/**'
+      - 'js/site-data.js'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'admin-mobile/**'
+      - 'js/site-data.js'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Admin APK
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Prepare assets
+        run: |
+          mkdir -p admin-mobile/app/src/main/assets
+          cp admin-mobile/index.html admin-mobile/app/src/main/assets/
+          cp admin-mobile/admin.html admin-mobile/app/src/main/assets/
+          cp admin-mobile/admin-login.html admin-mobile/app/src/main/assets/
+          cp -r admin-mobile/js admin-mobile/app/src/main/assets/
+
+      - name: Build debug APK
+        working-directory: admin-mobile
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgac-admin-app-debug
+          path: admin-mobile/app/build/outputs/apk/debug/*.apk
+          retention-days: 7

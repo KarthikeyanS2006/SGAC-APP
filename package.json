@@ -1,0 +1,15 @@
+{
+  "name": "sgac-college-website",
+  "version": "1.0.0",
+  "description": "Sethupathy Government Arts College Website",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve -l 3000",
+    "build": "rm -rf dist && cp -r . dist/ && rm -rf dist/android && rm -rf dist/node_modules && rm -rf dist/.git",
+    "cap:sync": "npx cap sync android",
+    "cap:open": "npx cap open android"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

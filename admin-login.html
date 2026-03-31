@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Sethupathy Government Arts College</title>
+    <link rel="icon" href="./img/fav_icon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3ee7079dc6.js" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-gold: #fbbf24;
+            --accent-red: #ef4444;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header .logo {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--accent-gold), #d97706);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .login-header h1 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .login-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .captcha-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .captcha-box {
+            flex: 1;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+            color: var(--accent-gold);
+            user-select: none;
+            text-transform: uppercase;
+        }
+
+        .captcha-refresh {
+            width: 44px;
+            height: 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .captcha-refresh:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.875rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: 0.2s;
+        }
+
+        .back-link a:hover {
+            color: var(--accent-blue);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Admin Login</h1>
+            <p>Sethupathy Government Arts College</p>
+        </div>
+
+        <div class="error-message" id="error-message"></div>
+
+        <form id="login-form" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter username" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter password" required autocomplete="current-password">
+            </div>
+
+            <div class="form-group">
+                <label>Captcha</label>
+                <div class="captcha-container">
+                    <div class="captcha-box" id="captcha-display">X7K9M</div>
+                    <button type="button" class="captcha-refresh" onclick="generateCaptcha()" title="Refresh Captcha">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <input type="text" id="captcha-input" class="form-control" placeholder="Enter captcha code" required maxlength="5" style="text-transform: uppercase;">
+            </div>
+
+            <button type="submit" class="btn-login" id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Login to Admin
+            </button>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Website</a>
+        </div>
+
+        <div class="footer">
+            &copy; 2025 SGAC Admin Panel
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'sgac2025'
+        };
+
+        let currentCaptcha = '';
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = '';
+            for (let i = 0; i < 5; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = result;
+            document.getElementById('captcha-display').textContent = result;
+            document.getElementById('captcha-input').value = '';
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('error-message');
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => errorEl.classList.remove('show'), 4000);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const captchaInput = document.getElementById('captcha-input').value.trim().toUpperCase();
+
+            if (!username || !password) {
+                showError('Please enter username and password');
+                return false;
+            }
+
+            if (!captchaInput) {
+                showError('Please enter the captcha code');
+                return false;
+            }
+
+            if (captchaInput !== currentCaptcha) {
+                showError('Invalid captcha code. Please try again.');
+                generateCaptcha();
+                return false;
+            }
+
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                showError('Invalid username or password');
+                generateCaptcha();
+            }
+
+            return false;
+        }
+
+        generateCaptcha();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{
+  "appId": "com.sgac.college.admin",
+  "appName": "SGAC Admin",
+  "webDir": ".",
+  "bundledWebRuntime": true,
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#0f172a",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP"
+    }
+  },
+  "android": {
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": true
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

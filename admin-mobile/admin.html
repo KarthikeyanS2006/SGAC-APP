@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Sethupathy Government Arts College</title>
+    <link rel="icon" href="./img/fav_icon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3ee7079dc6.js" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --accent-blue: #3b82f6;
+            --accent-gold: #fbbf24;
+            --accent-red: #ef4444;
+            --accent-green: #22c55e;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 270px;
+            background: #0b1120;
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .nav-item:hover {
+            color: var(--text-main);
+            background: var(--glass);
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-blue);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-item .badge {
+            margin-left: auto;
+            background: var(--accent-blue);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .dept-dropdown {
+            margin-left: 0.5rem;
+            margin-top: 0.5rem;
+            border-left: 2px solid var(--accent-blue);
+            padding-left: 0.5rem;
+            display: none;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .dept-dropdown.show {
+            display: block;
+        }
+
+        .dept-item {
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dept-item:hover {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-blue);
+        }
+
+        .dept-item i {
+            font-size: 0.75rem;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            flex: 1;
+            padding: 2rem;
+            max-width: calc(100% - 270px);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            color: var(--text-main);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .btn-danger:hover {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .btn-success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+        }
+
+        .btn-success:hover {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .save-banner {
+            background: #065f46;
+            color: #ecfdf5;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .admin-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .item-list {
+            list-style: none;
+        }
+
+        .item {
+            padding: 1rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item:hover {
+            background: var(--glass);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .item-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .item-actions .btn {
+            padding: 0.4rem 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+        .stat-icon.gold { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+
+        .stat-info h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .stat-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 550px;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: var(--glass);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .dept-card {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .dept-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .dept-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dept-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        input:checked + .slider {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+        }
+
+        .logout-btn:hover {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .carousel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .carousel-item {
+            background: var(--bg-dark);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .carousel-item .info {
+            padding: 0.75rem;
+        }
+
+        .carousel-item .info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>SGAC Admin</span>
+        </div>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Main</div>
+            <button class="nav-item active" data-section="dashboard">
+                <i class="fas fa-th-large"></i> Dashboard
+            </button>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Site Content</div>
+            <button class="nav-item" data-section="news">
+                <i class="fas fa-bullhorn"></i> News
+            </button>
+            <button class="nav-item" data-section="events">
+                <i class="fas fa-calendar-alt"></i> Events
+            </button>
+            <button class="nav-item" data-section="downloads">
+                <i class="fas fa-file-download"></i> Downloads
+            </button>
+            <button class="nav-item" data-section="carousel">
+                <i class="fas fa-images"></i> Home Slider
+            </button>
+            <button class="nav-item" data-section="announcements">
+                <i class="fas fa-bell"></i> Announcements
+            </button>
+            <button class="nav-item" data-section="staff">
+                <i class="fas fa-users-cog"></i> Admin Staff
+            </button>
+        </nav>
+
+        <nav class="nav-section">
+            <div class="nav-section-title">Academics</div>
+            <button class="nav-item" id="dept-toggle" onclick="toggleDeptDropdown()">
+                <i class="fas fa-building"></i> Departments <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
+            </button>
+            <div class="dept-dropdown" id="dept-dropdown">
+                <div class="dept-item" onclick="openDeptAdmin('english')"><i class="fas fa-graduation-cap"></i> English</div>
+                <div class="dept-item" onclick="openDeptAdmin('tamil')"><i class="fas fa-graduation-cap"></i> Tamil</div>
+                <div class="dept-item" onclick="openDeptAdmin('commerce')"><i class="fas fa-graduation-cap"></i> Commerce</div>
+                <div class="dept-item" onclick="openDeptAdmin('commerceca')"><i class="fas fa-graduation-cap"></i> Commerce CA</div>
+                <div class="dept-item" onclick="openDeptAdmin('computer')"><i class="fas fa-graduation-cap"></i> Computer Science</div>
+                <div class="dept-item" onclick="openDeptAdmin('mathematics')"><i class="fas fa-graduation-cap"></i> Mathematics</div>
+                <div class="dept-item" onclick="openDeptAdmin('physics')"><i class="fas fa-graduation-cap"></i> Physics</div>
+                <div class="dept-item" onclick="openDeptAdmin('chemistry')"><i class="fas fa-graduation-cap"></i> Chemistry</div>
+                <div class="dept-item" onclick="openDeptAdmin('botany')"><i class="fas fa-graduation-cap"></i> Botany</div>
+                <div class="dept-item" onclick="openDeptAdmin('zoology')"><i class="fas fa-graduation-cap"></i> Zoology</div>
+                <div class="dept-item" onclick="openDeptAdmin('economics')"><i class="fas fa-graduation-cap"></i> Economics</div>
+                <div class="dept-item" onclick="openDeptAdmin('marinebiology')"><i class="fas fa-graduation-cap"></i> Marine Biology</div>
+            </div>
+        </nav>
+
+        <button class="nav-item logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h1 id="page-title">Dashboard</h1>
+                <p>Welcome back! Manage your website content.</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="resetData()">
+                    <i class="fas fa-redo"></i> Reset Data
+                </button>
+                <a href="index.html" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-external-link-alt"></i> View Site
+                </a>
+                <div id="save-status" class="save-banner">Changes saved!</div>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <section id="dashboard-section" class="admin-section active">
+            <div class="grid-3">
+                <div class="stat-card" onclick="showSection('news')" style="cursor: pointer;">
+                    <div class="stat-icon blue"><i class="fas fa-bullhorn"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-news">0</h3>
+                        <p>News Items</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="showSection('events')" style="cursor: pointer;">
+                    <div class="stat-icon gold"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-events">0</h3>
+                        <p>Events</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="showSection('downloads')" style="cursor: pointer;">
+                    <div class="stat-icon green"><i class="fas fa-file-download"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-downloads">0</h3>
+                        <p>Downloads</p>
+                    </div>
+                </div>
+                <div class="stat-card" onclick="showSection('carousel')" style="cursor: pointer;">
+                    <div class="stat-icon red"><i class="fas fa-images"></i></div>
+                    <div class="stat-info">
+                        <h3 id="stat-carousel">0</h3>
+                        <p>Carousel Slides</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <div class="card-header">
+                    <h2>Quick Access - Departments</h2>
+                </div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('english')"><i class="fas fa-book"></i> English</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('tamil')"><i class="fas fa-book"></i> Tamil</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('commerce')"><i class="fas fa-book"></i> Commerce</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('commerceca')"><i class="fas fa-book"></i> Commerce CA</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('computer')"><i class="fas fa-book"></i> Computer Science</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('mathematics')"><i class="fas fa-book"></i> Mathematics</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('physics')"><i class="fas fa-book"></i> Physics</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('chemistry')"><i class="fas fa-book"></i> Chemistry</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('botany')"><i class="fas fa-book"></i> Botany</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('zoology')"><i class="fas fa-book"></i> Zoology</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('economics')"><i class="fas fa-book"></i> Economics</button>
+                        <button class="btn btn-secondary" onclick="openDeptAdmin('marinebiology')"><i class="fas fa-book"></i> Marine Biology</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News -->
+        <section id="news-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>News Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('news')">
+                        <i class="fas fa-plus"></i> Add News
+                    </button>
+                </div>
+                <ul class="item-list" id="news-list"></ul>
+            </div>
+        </section>
+
+        <!-- Events -->
+        <section id="events-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Events Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('events')">
+                        <i class="fas fa-plus"></i> Add Event
+                    </button>
+                </div>
+                <ul class="item-list" id="events-list"></ul>
+            </div>
+        </section>
+
+        <!-- Downloads -->
+        <section id="downloads-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Downloads Management</h2>
+                    <button class="btn btn-primary" onclick="openModal('downloads')">
+                        <i class="fas fa-plus"></i> Add Download
+                    </button>
+                </div>
+                <ul class="item-list" id="downloads-list"></ul>
+            </div>
+        </section>
+
+        <!-- Carousel -->
+        <section id="carousel-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Homepage Carousel</h2>
+                    <button class="btn btn-primary" onclick="openModal('carousel')">
+                        <i class="fas fa-image"></i> Add Slide
+                    </button>
+                </div>
+                <div class="carousel-grid" id="carousel-list"></div>
+            </div>
+        </section>
+
+        <!-- Announcements -->
+        <section id="announcements-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Announcements (Marquee)</h2>
+                    <button class="btn btn-primary" onclick="openModal('announcements')">
+                        <i class="fas fa-plus"></i> Add Announcement
+                    </button>
+                </div>
+                <ul class="item-list" id="announcements-list"></ul>
+            </div>
+        </section>
+
+        <!-- Admin Staff -->
+        <section id="staff-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Administrative Staff</h2>
+                    <button class="btn btn-primary" onclick="openModal('staff')">
+                        <i class="fas fa-plus"></i> Add Staff
+                    </button>
+                </div>
+                <ul class="item-list" id="staff-list"></ul>
+            </div>
+        </section>
+
+        <!-- Department Admin -->
+        <section id="dept-section" class="admin-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2 id="dept-title">Department Admin</h2>
+                    <button class="btn btn-secondary" onclick="closeDeptAdmin()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="tab-buttons" id="dept-tabs">
+                        <button class="tab-btn active" onclick="switchDeptTab('about', this)">About</button>
+                        <button class="tab-btn" onclick="switchDeptTab('vision', this)">Vision</button>
+                        <button class="tab-btn" onclick="switchDeptTab('faculty', this)">Faculty</button>
+                        <button class="tab-btn" onclick="switchDeptTab('courses', this)">Courses</button>
+                        <button class="tab-btn" onclick="switchDeptTab('activities', this)">Activities</button>
+                        <button class="tab-btn" onclick="switchDeptTab('achievements', this)">Achievements</button>
+                        <button class="tab-btn" onclick="switchDeptTab('gallery', this)">Gallery</button>
+                    </div>
+                    
+                    <div id="dept-about-panel">
+                        <div class="form-group">
+                            <label>About Department</label>
+                            <textarea id="dept-about" class="form-control" rows="6" placeholder="Enter department description"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveDeptField('about')">Save About</button>
+                        
+                        <hr style="border-color: var(--border); margin: 1.5rem 0;">
+                        
+                        <h3 style="margin-bottom: 1rem;">HOD Details</h3>
+                        <div class="form-group">
+                            <label>HOD Name</label>
+                            <input type="text" id="hod-name" class="form-control" placeholder="Enter HOD name">
+                        </div>
+                        <div class="form-group">
+                            <label>HOD Designation</label>
+                            <input type="text" id="hod-designation" class="form-control" placeholder="e.g., Head of Department, Assistant Professor">
+                        </div>
+                        <div class="form-group">
+                            <label>HOD Qualification</label>
+                            <input type="text" id="hod-qualification" class="form-control" placeholder="e.g., M.A., M.Phil., Ph.D.">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveDeptField('hod')">Save HOD Details</button>
+                    </div>
+
+                    <div id="dept-vision-panel" style="display: none;">
+                        <div class="form-group">
+                            <label>Vision</label>
+                            <textarea id="dept-vision" class="form-control" rows="4" placeholder="Enter vision statement"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Mission</label>
+                            <textarea id="dept-mission" class="form-control" rows="4" placeholder="Enter mission statement"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveDeptField('vision')">Save Vision & Mission</button>
+                    </div>
+
+                    <div id="dept-faculty-panel" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Faculty Members</h3>
+                            <button class="btn btn-primary" onclick="openModal('faculty')">
+                                <i class="fas fa-plus"></i> Add Faculty
+                            </button>
+                        </div>
+                        <ul class="item-list" id="faculty-list"></ul>
+                    </div>
+
+                    <div id="dept-courses-panel" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Courses Offered</h3>
+                            <button class="btn btn-primary" onclick="openModal('courses')">
+                                <i class="fas fa-plus"></i> Add Course
+                            </button>
+                        </div>
+                        <ul class="item-list" id="courses-list"></ul>
+                    </div>
+
+                    <div id="dept-activities-panel" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Department Activities</h3>
+                            <button class="btn btn-primary" onclick="openModal('activities')">
+                                <i class="fas fa-plus"></i> Add Activity
+                            </button>
+                        </div>
+                        <ul class="item-list" id="activities-list"></ul>
+                    </div>
+
+                    <div id="dept-achievements-panel" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Department Achievements</h3>
+                            <button class="btn btn-primary" onclick="openModal('achievements')">
+                                <i class="fas fa-plus"></i> Add Achievement
+                            </button>
+                        </div>
+                        <ul class="item-list" id="achievements-list"></ul>
+                    </div>
+
+                    <div id="dept-gallery-panel" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Gallery Images</h3>
+                            <button class="btn btn-primary" onclick="openModal('gallery')">
+                                <i class="fas fa-plus"></i> Add Image
+                            </button>
+                        </div>
+                        <ul class="item-list" id="gallery-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Item</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modal-form"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" id="modal-save-btn" onclick="saveItem()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/site-data.js"></script>
+    <script>
+        // Check login
+        if (!sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        let data = loadSiteData();
+        let currentSection = 'dashboard';
+        let currentDept = null;
+        let currentDeptTab = 'faculty';
+        let itemToDelete = null;
+        let editingType = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStats();
+            renderAll();
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+            item.addEventListener('click', () => {
+                const section = item.dataset.section;
+                showSection(section);
+            });
+        });
+
+        function showSection(section) {
+            currentSection = section;
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section + '-section').classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelector(`.nav-item[data-section="${section}"]`)?.classList.add('active');
+
+            const titles = {
+                dashboard: 'Dashboard',
+                news: 'News Management',
+                events: 'Events Management',
+                downloads: 'Downloads Management',
+                carousel: 'Homepage Carousel',
+                announcements: 'Announcements',
+                staff: 'Administrative Staff',
+                dept: 'Department Admin'
+            };
+            document.getElementById('page-title').innerText = titles[section] || 'Dashboard';
+            
+            renderAll();
+        }
+
+        function toggleDeptDropdown() {
+            document.getElementById('dept-dropdown').classList.toggle('show');
+        }
+
+        function openDeptAdmin(dept) {
+            currentDept = dept;
+            document.getElementById('dept-dropdown').classList.remove('show');
+            
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+            document.getElementById('dept-section').classList.add('active');
+            document.getElementById('dept-title').innerText = 'Department: ' + dept.charAt(0).toUpperCase() + dept.slice(1);
+            document.getElementById('page-title').innerText = 'Department: ' + dept.charAt(0).toUpperCase() + dept.slice(1);
+            
+            const firstTabBtn = document.querySelector('.tab-btn');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            firstTabBtn.classList.add('active');
+            
+            document.getElementById('dept-faculty-panel').style.display = 'block';
+            document.getElementById('dept-about-panel').style.display = 'none';
+            document.getElementById('dept-courses-panel').style.display = 'none';
+            
+            renderDeptContent();
+        }
+
+        function closeDeptAdmin() {
+            currentDept = null;
+            showSection('dashboard');
+        }
+
+        function switchDeptTab(tab, btn) {
+            currentDeptTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            document.getElementById('dept-about-panel').style.display = tab === 'about' ? 'block' : 'none';
+            document.getElementById('dept-vision-panel').style.display = tab === 'vision' ? 'block' : 'none';
+            document.getElementById('dept-faculty-panel').style.display = tab === 'faculty' ? 'block' : 'none';
+            document.getElementById('dept-courses-panel').style.display = tab === 'courses' ? 'block' : 'none';
+            document.getElementById('dept-activities-panel').style.display = tab === 'activities' ? 'block' : 'none';
+            document.getElementById('dept-achievements-panel').style.display = tab === 'achievements' ? 'block' : 'none';
+            document.getElementById('dept-gallery-panel').style.display = tab === 'gallery' ? 'block' : 'none';
+
+            const deptData = data.departments && data.departments[currentDept] ? data.departments[currentDept] : {};
+            
+            if (tab === 'about') {
+                document.getElementById('dept-about').value = deptData.about || '';
+                document.getElementById('hod-name').value = deptData.hod ? deptData.hod.name : '';
+                document.getElementById('hod-designation').value = deptData.hod ? deptData.hod.designation : '';
+                document.getElementById('hod-qualification').value = deptData.hod ? deptData.hod.qualification : '';
+            } else if (tab === 'vision') {
+                document.getElementById('dept-vision').value = deptData.vision || '';
+                document.getElementById('dept-mission').value = deptData.mission || '';
+            }
+
+            renderDeptContent();
+        }
+
+        function saveDeptField(field) {
+            if (!data.departments) data.departments = {};
+            if (!data.departments[currentDept]) data.departments[currentDept] = {};
+            
+            if (field === 'about') {
+                data.departments[currentDept].about = document.getElementById('dept-about').value;
+            } else if (field === 'hod') {
+                data.departments[currentDept].hod = {
+                    name: document.getElementById('hod-name').value,
+                    designation: document.getElementById('hod-designation').value,
+                    qualification: document.getElementById('hod-qualification').value
+                };
+            } else if (field === 'vision') {
+                data.departments[currentDept].vision = document.getElementById('dept-vision').value;
+                data.departments[currentDept].mission = document.getElementById('dept-mission').value;
+            }
+            
+            saveSiteData(data);
+            showStatus();
+        }
+
+        function renderStats() {
+            document.getElementById('stat-news').textContent = (data.news || []).length;
+            document.getElementById('stat-events').textContent = (data.events || []).length;
+            document.getElementById('stat-downloads').textContent = (data.downloads || []).length;
+            document.getElementById('stat-carousel').textContent = (data.carousel || []).length;
+        }
+
+        function renderAll() {
+            renderList('news');
+            renderList('events');
+            renderList('downloads');
+            renderCarousel();
+            renderList('announcements');
+            renderList('staff');
+            renderStats();
+            if (currentDept) renderDeptContent();
+        }
+
+        function renderList(type) {
+            const list = document.getElementById(type + '-list');
+            const items = data[type] || [];
+            
+            if (items.length === 0) {
+                list.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-inbox"></i><p>No items yet. Click add to create one.</p></div></li>`;
+                return;
+            }
+
+            if (type === 'staff') {
+                list.innerHTML = items.map((item, id) => `
+                    <li class="item">
+                        <div class="item-info">
+                            <h3>${item.name}</h3>
+                            <p>${item.designation} - ${item.department || ''}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('${type}', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+                return;
+            }
+
+            list.innerHTML = items.map((item, id) => `
+                <li class="item">
+                    <div class="item-info">
+                        <h3>${item.title}</h3>
+                        <p>${item.date || item.link || ''}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-danger" onclick="confirmDelete('${type}', ${id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        function renderCarousel() {
+            const list = document.getElementById('carousel-list');
+            const items = data.carousel || [];
+
+            if (items.length === 0) {
+                list.innerHTML = `<div class="empty-state" style="grid-column: 1/-1;"><i class="fas fa-images"></i><p>No slides. Add one to get started.</p></div>`;
+                return;
+            }
+
+            list.innerHTML = items.map((item, id) => `
+                <div class="carousel-item">
+                    <img src="${item.img}" alt="${item.alt}" onerror="this.src='https://placehold.co/400x200?text=No+Image'">
+                    <div class="info">
+                        <p>${item.alt}</p>
+                        <button class="btn btn-danger" style="width: 100%; margin-top: 0.5rem; justify-content: center;" onclick="confirmDelete('carousel', ${id})">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDeptContent() {
+            if (!currentDept) return;
+            
+            const deptData = data.departments && data.departments[currentDept] ? data.departments[currentDept] : {};
+            
+            // Faculty
+            const facultyList = document.getElementById('faculty-list');
+            const faculty = deptData.faculty || [];
+            if (faculty.length === 0) {
+                facultyList.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-users"></i><p>No faculty members added.</p></div></li>`;
+            } else {
+                facultyList.innerHTML = faculty.map((f, id) => `
+                    <li class="item">
+                        <div class="item-info" style="display: flex; align-items: center; gap: 15px;">
+                            ${f.image ? `<img src="${f.image}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">` : ''}
+                            <div>
+                                <h3>${f.name}</h3>
+                                <p>${f.designation} - ${f.qualification || ''}</p>
+                                ${f.resume ? `<a href="${f.resume}" target="_blank" style="color: var(--accent-blue); font-size: 12px;">View Profile</a>` : ''}
+                            </div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('faculty', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            // Courses
+            const coursesList = document.getElementById('courses-list');
+            const courses = deptData.courses || [];
+            if (courses.length === 0) {
+                coursesList.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-book"></i><p>No courses added.</p></div></li>`;
+            } else {
+                coursesList.innerHTML = courses.map((c, id) => `
+                    <li class="item">
+                        <div class="item-info">
+                            <h3>${c.name}</h3>
+                            <p>${c.type || 'Under Graduate'}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('courses', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            // Activities
+            const activitiesList = document.getElementById('activities-list');
+            const activities = deptData.activities || [];
+            if (activities.length === 0) {
+                activitiesList.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-chart-line"></i><p>No activities added.</p></div></li>`;
+            } else {
+                activitiesList.innerHTML = activities.map((a, id) => `
+                    <li class="item">
+                        <div class="item-info">
+                            <h3>${a.title}</h3>
+                            <p>${a.description || ''}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('activities', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            // Achievements
+            const achievementsList = document.getElementById('achievements-list');
+            const achievements = deptData.achievements || [];
+            if (achievements.length === 0) {
+                achievementsList.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-award"></i><p>No achievements added.</p></div></li>`;
+            } else {
+                achievementsList.innerHTML = achievements.map((a, id) => `
+                    <li class="item">
+                        <div class="item-info">
+                            <h3>${a.title}</h3>
+                            <p>${a.description || ''}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('achievements', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+
+            // Gallery
+            const galleryList = document.getElementById('gallery-list');
+            const gallery = deptData.gallery || [];
+            if (gallery.length === 0) {
+                galleryList.innerHTML = `<li class="item"><div class="empty-state" style="padding: 2rem;"><i class="fas fa-images"></i><p>No gallery images added.</p></div></li>`;
+            } else {
+                galleryList.innerHTML = gallery.map((img, id) => `
+                    <li class="item">
+                        <div class="item-info">
+                            <img src="${img}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" onerror="this.style.display='none'">
+                            <span style="margin-left: 10px;">${img}</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger" onclick="confirmDelete('gallery', ${id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            }
+        }
+
+        // Modal Functions
+        function openModal(type) {
+            editingType = type;
+            const overlay = document.getElementById('modal-overlay');
+            const title = document.getElementById('modal-title');
+            const form = document.getElementById('modal-form');
+            const saveBtn = document.getElementById('modal-save-btn');
+
+            let html = '';
+
+            if (type === 'news') {
+                title.innerText = 'Add News';
+                html = `
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter news title">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., March 15, 2025">
+                    </div>
+                `;
+            } else if (type === 'events') {
+                title.innerText = 'Add Event';
+                html = `
+                    <div class="form-group">
+                        <label>Event Title</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter event title">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., March 15, 2025">
+                    </div>
+                `;
+            } else if (type === 'downloads') {
+                title.innerText = 'Add Download';
+                html = `
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="e.g., Academic Calendar">
+                    </div>
+                    <div class="form-group">
+                        <label>File Link</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., Documents/calendar.pdf">
+                    </div>
+                `;
+            } else if (type === 'carousel') {
+                title.innerText = 'Add Carousel Slide';
+                html = `
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="e.g., img/Slider/college.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label>Alt Text</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., College Campus">
+                    </div>
+                `;
+            } else if (type === 'announcements') {
+                title.innerText = 'Add Announcement';
+                html = `
+                    <div class="form-group">
+                        <label>Announcement Text</label>
+                        <textarea id="input-1" class="form-control" placeholder="Enter announcement text"></textarea>
+                    </div>
+                `;
+            } else if (type === 'faculty' && currentDept) {
+                title.innerText = 'Add Faculty';
+                html = `
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter faculty name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Designation *</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., Guest Lecturer">
+                    </div>
+                    <div class="form-group">
+                        <label>Qualification *</label>
+                        <input type="text" id="input-3" class="form-control" placeholder="e.g., M.A., M.Phil., Ph.D.">
+                    </div>
+                    <div class="form-group">
+                        <label>Photo URL (Google Drive or Image Link)</label>
+                        <input type="text" id="input-4" class="form-control" placeholder="e.g., https://drive.google.com/uc?export=view&id=...">
+                    </div>
+                    <div class="form-group">
+                        <label>Resume/Profile URL (Google Drive)</label>
+                        <input type="text" id="input-5" class="form-control" placeholder="e.g., https://drive.google.com/file/d/...">
+                    </div>
+                `;
+            } else if (type === 'courses' && currentDept) {
+                title.innerText = 'Add Course';
+                html = `
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="e.g., B.A. English">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="input-2" class="form-control">
+                            <option value="Under Graduate">Under Graduate</option>
+                            <option value="Post Graduate">Post Graduate</option>
+                        </select>
+                    </div>
+                `;
+            } else if (type === 'activities' && currentDept) {
+                title.innerText = 'Add Activity';
+                html = `
+                    <div class="form-group">
+                        <label>Activity Title</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter activity title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="input-2" class="form-control" placeholder="Enter activity description"></textarea>
+                    </div>
+                `;
+            } else if (type === 'achievements' && currentDept) {
+                title.innerText = 'Add Achievement';
+                html = `
+                    <div class="form-group">
+                        <label>Achievement Title</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter achievement title">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="input-2" class="form-control" placeholder="Enter achievement description"></textarea>
+                    </div>
+                `;
+            } else if (type === 'gallery' && currentDept) {
+                title.innerText = 'Add Gallery Image';
+                html = `
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="e.g., img/gallery/english/image.jpg">
+                    </div>
+                `;
+            } else if (type === 'staff') {
+                title.innerText = 'Add Administrative Staff';
+                html = `
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="input-1" class="form-control" placeholder="Enter staff name">
+                    </div>
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <input type="text" id="input-2" class="form-control" placeholder="e.g., Office Superintendent">
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="input-3" class="form-control" placeholder="e.g., Administrative Office">
+                    </div>
+                `;
+            }
+
+            form.innerHTML = html;
+            saveBtn.innerText = 'Save Changes';
+            saveBtn.className = 'btn btn-primary';
+            saveBtn.onclick = saveItem;
+            overlay.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('show');
+        }
+
+        function saveItem() {
+            const v1 = document.getElementById('input-1')?.value.trim();
+            const v2 = document.getElementById('input-2')?.value.trim();
+            const v3 = document.getElementById('input-3')?.value.trim();
+
+            if (!v1 && editingType !== 'announcements') {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            if (editingType === 'news') {
+                data.news = data.news || [];
+                data.news.unshift({ title: v1, date: v2, icon: 'fa-university' });
+            } else if (editingType === 'events') {
+                data.events = data.events || [];
+                data.events.unshift({ title: v1, date: v2, icon: 'fa-calendar' });
+            } else if (editingType === 'downloads') {
+                data.downloads = data.downloads || [];
+                data.downloads.unshift({ title: v1, link: v2, icon: 'fa-download' });
+            } else if (editingType === 'carousel') {
+                data.carousel = data.carousel || [];
+                data.carousel.unshift({ img: v1, alt: v2 });
+            } else if (editingType === 'announcements') {
+                data.announcements = data.announcements || [];
+                data.announcements.unshift({ text: v1 });
+            } else if (editingType === 'faculty' && currentDept) {
+                const v4 = document.getElementById('input-4')?.value.trim();
+                const v5 = document.getElementById('input-5')?.value.trim();
+                if (!data.departments) data.departments = {};
+                if (!data.departments[currentDept]) data.departments[currentDept] = {};
+                data.departments[currentDept].faculty = data.departments[currentDept].faculty || [];
+                data.departments[currentDept].faculty.unshift({ name: v1, designation: v2, qualification: v3 || '', image: v4 || '', resume: v5 || '' });
+            } else if (editingType === 'courses' && currentDept) {
+                if (!data.departments) data.departments = {};
+                if (!data.departments[currentDept]) data.departments[currentDept] = {};
+                data.departments[currentDept].courses = data.departments[currentDept].courses || [];
+                data.departments[currentDept].courses.unshift({ name: v1, type: v2 });
+            } else if (editingType === 'activities' && currentDept) {
+                if (!data.departments) data.departments = {};
+                if (!data.departments[currentDept]) data.departments[currentDept] = {};
+                data.departments[currentDept].activities = data.departments[currentDept].activities || [];
+                data.departments[currentDept].activities.unshift({ title: v1, description: v2 });
+            } else if (editingType === 'achievements' && currentDept) {
+                if (!data.departments) data.departments = {};
+                if (!data.departments[currentDept]) data.departments[currentDept] = {};
+                data.departments[currentDept].achievements = data.departments[currentDept].achievements || [];
+                data.departments[currentDept].achievements.unshift({ title: v1, description: v2 });
+            } else if (editingType === 'gallery' && currentDept) {
+                if (!data.departments) data.departments = {};
+                if (!data.departments[currentDept]) data.departments[currentDept] = {};
+                data.departments[currentDept].gallery = data.departments[currentDept].gallery || [];
+                data.departments[currentDept].gallery.unshift(v1);
+            } else if (editingType === 'staff') {
+                data.staff = data.staff || [];
+                data.staff.unshift({ name: v1, designation: v2, department: v3 });
+            }
+
+            saveSiteData(data);
+            showStatus();
+            closeModal();
+            renderAll();
+        }
+
+        function confirmDelete(type, id) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+
+            if (type === 'faculty' && currentDept) {
+                data.departments[currentDept].faculty.splice(id, 1);
+            } else if (type === 'courses' && currentDept) {
+                data.departments[currentDept].courses.splice(id, 1);
+            } else if (type === 'activities' && currentDept) {
+                data.departments[currentDept].activities.splice(id, 1);
+            } else if (type === 'achievements' && currentDept) {
+                data.departments[currentDept].achievements.splice(id, 1);
+            } else if (type === 'gallery' && currentDept) {
+                data.departments[currentDept].gallery.splice(id, 1);
+            } else if (data[type]) {
+                data[type].splice(id, 1);
+            }
+
+            saveSiteData(data);
+            showStatus();
+            renderAll();
+        }
+
+        function showStatus() {
+            const banner = document.getElementById('save-status');
+            banner.style.display = 'block';
+            setTimeout(() => banner.style.display = 'none', 3000);
+        }
+
+        function resetData() {
+            if (confirm('This will reset all data to defaults. Are you sure?')) {
+                localStorage.removeItem('sgac_site_data');
+                data = loadSiteData();
+                renderAll();
+                showStatus();
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'admin-login.html';
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') closeModal();
+        });
+    </script>
+</body>
+</html>

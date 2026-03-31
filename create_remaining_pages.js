@@ -1,0 +1,211 @@
+const fs = require('fs');
+
+// Modern template for activity pages  
+function createActivityPage(config) {
+    const { name, title, icon, intro, activities, coordinators } = config;
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="../img/fav_icon.png" type="image/png">
+  <title>${title} | Sethupathy Government Arts College</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;600;700&family=Open+Sans:wght@400;600;700&family=Roboto:wght@300;400;500;700&family=Raleway:wght@500;600;700&family=Montaga&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3ee7079dc6.js" crossorigin="anonymous"></script>
+  
+  <link rel="stylesheet" href="../css/modern-variables.css">
+  <link rel="stylesheet" href="../css/modern-reset.css">
+  <link rel="stylesheet" href="../css/modern-style.css">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mystyle.css">
+</head>
+
+<body>
+  <div class="top-bar">
+    <div class="container">
+      <div>
+        <a href="mailto:contact@sgacrmd.edu.in"><i class="fa fa-envelope"></i> contact@sgacrmd.edu.in</a>
+        <a href="tel:+914567221343"><i class="fa fa-phone"></i> +91-4567-221343</a>
+      </div>
+      <div>
+        <a href="../index.html"><i class="fa fa-home"></i> Home</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="container">
+      <div class="header-content">
+        <div class="header-logo">
+          <a href="../index.html"><img src="../img/tamil_logo.png" alt="Government Logo"></a>
+        </div>
+        <div class="header-title">
+          <h1 class="college-name">Sethupathy Government Arts College, Ramanathapuram-623501</h1>
+          <p class="college-name-tamil">செதுபாதி அரசு கலை கல்லூரி, இராமநாதபுரம்-623501</p>
+          <p class="college-subtitle">(Accredited with 'B' Grade by NAAC)</p>
+          <p class="college-subtitle">Affiliated to Alagappa University, Karaikudi</p>
+        </div>
+        <div class="header-logo">
+          <a href="../index.html"><img src="../img/logo_new1.png" alt="College Logo"></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navbar">
+    <div class="container">
+      <button class="mobile-menu-toggle" aria-label="Toggle Navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link">About Us <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="../History.html" class="nav-link">History</a></li>
+            <li><a href="../Vision.html" class="nav-link">Vision & Mission</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a href="../index.html#contactarea" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="content-section" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); padding: var(--space-2xl) 0;">
+    <div class="container">
+      <div style="text-align: center; color: var(--color-white);">
+        <h1 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-md); color: var(--color-white);">
+          <i class="fas fa-${icon}" style="margin-right: var(--space-md); color: var(--color-gold);"></i>
+          ${title}
+        </h1>
+        <nav style="display: flex; justify-content: center; gap: var(--space-md); font-size: var(--font-size-base);">
+          <a href="../index.html" style="color: var(--color-white); opacity: 0.9;">Home</a>
+          <span style="opacity: 0.6;">/</span>
+          <span style="opacity: 0.9;">Activities</span>
+          <span style="opacity: 0.6;">/</span>
+          <span style="font-weight: var(--font-weight-semibold);">${name}</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section" style="padding-top: 0;">
+    <div class="container">
+      <div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-info-circle" style="color: var(--color-gold);"></i> Introduction
+        </h3>
+        ${intro}
+      </div>
+
+      ${activities ? `<div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-list-check" style="color: var(--color-gold);"></i> Activities
+        </h3>
+        ${activities}
+      </div>` : ''}
+
+      ${coordinators ? `<div class="content-card">
+        <h3 style="color: var(--color-primary); margin-bottom: var(--space-lg);">
+          <i class="fas fa-users" style="color: var(--color-gold);"></i> Programme Officers
+        </h3>
+        ${coordinators}
+      </div>` : ''}
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="../History.html">History</a>
+          <a href="../Vision.html">Vision & Mission</a>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p>Ramanathapuram<br>Tamil Nadu - 623501</p>
+          <p>Phone: +91-4567-221343</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> Sethupathy Government Arts College. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/jquery-3.2.1.min.js"></script>
+  <script src="../js/modern.js"></script>
+</body>
+</html>`;
+}
+
+const pages = [
+    {
+        filename: 'Yrc.html',
+        config: {
+            name: 'YRC',
+            title: 'Youth Red Cross',
+            icon: 'heart',
+            intro: '<p style="text-align: justify; line-height: 1.8;">Youth programs build character and provide the tools and experience youth need for leadership, strong communication skills, and service. By interacting with those in need, Red Cross youth volunteers establish a sense of awareness and personal achievement while developing these skills.</p>',
+            activities: '<p style="line-height: 1.8;">Activity details will be updated soon.</p>',
+            coordinators: '<p style="text-align: center;">Coordinator information will be updated soon.</p>'
+        }
+    },
+    {
+        filename: 'RedRibbon.html',
+        config: {
+            name: 'Red Ribbon',
+            title: 'Red Ribbon Club',
+            icon: 'ribbon',
+            intro: '<p style="text-align: justify; line-height: 1.8;">The Red Ribbon Club focuses on creating awareness about HIV/AIDS and promoting healthy lifestyle choices among students.</p>',
+            activities: '<p style="line-height: 1.8;">Activity details will be updated soon.</p>',
+            coordinators: '<p style="text-align: center;">Coordinator information will be updated soon.</p>'
+        }
+    },
+    {
+        filename: 'Iqac.html',
+        config: {
+            name: 'IQAC',
+            title: 'Internal Quality Assurance Cell',
+            icon: 'certificate',
+            intro: '<p style="text-align: justify; line-height: 1.8;">The IQAC ensures continuous improvement in the quality of education and institutional processes.</p>',
+            activities: '<p style="line-height: 1.8;">Activity details will be updated soon.</p>',
+            coordinators: '<p style="text-align: center;">Coordinator information will be updated soon.</p>'
+        }
+    },
+    {
+        filename: 'FineArts.html',
+        config: {
+            name: 'Fine Arts',
+            title: 'Fine Arts Club',
+            icon: 'palette',
+            intro: '<p style="text-align: justify; line-height: 1.8;">The Fine Arts Club promotes creativity and cultural activities among students.</p>',
+            activities: '<p style="line-height: 1.8;">Activity details will be updated soon.</p>',
+            coordinators: '<p style="text-align: center;">Coordinator information will be updated soon.</p>'
+        }
+    },
+    {
+        filename: 'Naac.html',
+        config: {
+            name: 'NAAC',
+            title: 'NAAC Accreditation',
+            icon: 'award',
+            intro: '<p style="text-align: justify; line-height: 1.8;">Our college is accredited with B Grade by NAAC, demonstrating our commitment to quality education.</p>',
+            activities: '<p style="line-height: 1.8;">NAAC documentation and assessments will be updated soon.</p>',
+            coordinators: null
+        }
+    }
+];
+
+console.log('Creating all activity pages...\n');
+pages.forEach(({ filename, config }) => {
+    const html = createActivityPage(config);
+    fs.writeFileSync('d:/Karthikeyan S/College Website/2nd time Upgrade/Activities/' + filename, html);
+    console.log(`✓ ${filename} created!`);
+});
+
+console.log('\n🎉 All 5 activity pages created successfully!');

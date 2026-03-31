@@ -1,0 +1,26 @@
+{
+  "name": "sgac-college-app",
+  "version": "1.0.0",
+  "description": "Sethupathy Government Arts College Mobile App",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx cap sync && npx cap run android",
+    "build": "npx cap sync",
+    "android": "npx cap open android"
+  },
+  "keywords": ["college", "education", "pwa", "capacitor"],
+  "author": "SGAC",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/cli": "^5.0.0"
+  },
+  "dependencies": {
+    "@capacitor/core": "^5.0.0",
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/app": "^5.0.0",
+    "@capacitor/haptics": "^5.0.0",
+    "@capacitor/keyboard": "^5.0.0",
+    "@capacitor/status-bar": "^5.0.0",
+    "@capacitor/network": "^5.0.0"
+  }
+}
