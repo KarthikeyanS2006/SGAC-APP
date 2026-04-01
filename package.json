@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "npx serve -l 3000",
-    "build": "mkdir -p dist && cp -r index.html css js img Activities Courses Documents Library public .github capacitor.config.json admin-mobile.html admin-login.html History.html Vision.html Administration.html Honours.html Principal-Desk.html Library.html developer.html dist/ 2>/dev/null || true",
+    "build": "rm -rf dist && mkdir -p dist && cp index.html History.html Vision.html Administration.html Honours.html Principal-Desk.html Library.html developer.html admin-login.html admin.html CheckList.html dist/ && cp -r css js img Activities Courses Documents dist/",
     "cap:sync": "npx cap sync android",
     "cap:open": "npx cap open android"
   },

@@ -13,36 +13,34 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Install Capacitor
+        run: npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Setup Android SDK
-        run: |
-          mkdir -p $HOME/android-sdk/cmdline-tools
-          cd $HOME/android-sdk/cmdline-tools
-          curl -sL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o cmdline-tools.zip
-          unzip -q cmdline-tools.zip
-          mkdir -p latest
-          mv cmdline-tools/* latest/ 2>/dev/null || true
-          yes | ./latest/bin/sdkmanager --licenses 2>/dev/null || true
-          ./latest/bin/sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
-
-      - name: Prepare app
-        run: |
-          mkdir -p admin-mobile/app/src/main/assets
-          cp admin-mobile/index.html admin-mobile/app/src/main/assets/
-          cp admin-mobile/admin.html admin-mobile/app/src/main/assets/
-          cp admin-mobile/admin-login.html admin-mobile/app/src/main/assets/
-          cp -r admin-mobile/js admin-mobile/app/src/main/assets/
+        uses: android-actions/setup-android@v3
 
       - name: Build APK
-        working-directory: admin-mobile
+        working-directory: android
         run: |
           chmod +x gradlew
           chmod +x gradle/wrapper/gradle-wrapper.jar
@@ -51,5 +49,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SGAC-App
-          path: admin-mobile/app/build/outputs/apk/debug/
+          name: SGAC-College-App
+          path: android/app/build/outputs/apk/debug/app-debug.apk
