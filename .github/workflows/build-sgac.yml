@@ -47,21 +47,18 @@ jobs:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --info 2>&1 | tee build.log
-          cat build.log | tail -50
+          ./gradlew clean assembleDebug --no-daemon
+
+      - name: Find APK
+        run: |
+          echo "Looking for APK files..."
+          find admin-mobile -name "*.apk" -type f
+          ls -la admin-mobile/app/build/outputs/apk/debug/ 2>/dev/null || echo "Debug folder not found"
+          ls -la admin-mobile/app/build/outputs/ 2>/dev/null || echo "Outputs folder not found"
 
       - name: Upload APK
-        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: SGAC-College-App
-          path: admin-mobile/app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 7
-
-      - name: Upload Build Log
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: admin-mobile/build.log
+          path: admin-mobile/app/build/outputs/apk/debug/
           retention-days: 7
