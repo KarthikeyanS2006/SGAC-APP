@@ -43,13 +43,10 @@ jobs:
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon
 
       - name: Check APK
-        run: |
-          echo "=== Checking APK ==="
-          ls -la android/app/build/outputs/apk/debug/
-          ls -la android/app/build/outputs/apk/debug/*.apk || echo "No APK found"
+        run: ls -la android/app/build/outputs/apk/debug/
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
