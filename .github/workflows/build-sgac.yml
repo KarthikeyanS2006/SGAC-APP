@@ -1,0 +1,49 @@
+name: Build SGAC App
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y android-sdk
+          echo "ANDROID_HOME=/usr/lib/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/usr/lib/android-sdk" >> $GITHUB_ENV
+
+      - name: Create assets folder
+        run: |
+          mkdir -p admin-mobile/app/src/main/assets
+          cp admin-mobile/index.html admin-mobile/app/src/main/assets/
+          cp admin-mobile/admin.html admin-mobile/app/src/main/assets/
+          cp admin-mobile/admin-login.html admin-mobile/app/src/main/assets/
+          cp -r admin-mobile/js admin-mobile/app/src/main/assets/
+
+      - name: Build APK
+        working-directory: admin-mobile
+        run: |
+          chmod +x gradlew
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGAC-College-App
+          path: admin-mobile/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
