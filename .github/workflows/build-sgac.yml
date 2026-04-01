@@ -34,16 +34,11 @@ jobs:
         working-directory: admin-mobile
         run: |
           chmod +x gradlew
-          chmod +x gradle/wrapper/gradle-wrapper.jar
-          ./gradlew assembleDebug --stacktrace 2>&1 | tee build.log || true
-          echo "=== Checking outputs ==="
-          ls -la app/build/outputs/ 2>/dev/null || echo "No outputs folder"
-          ls -la app/build/outputs/apk/ 2>/dev/null || echo "No apk folder"
-          ls -la app/build/outputs/apk/debug/ 2>/dev/null || echo "No debug folder"
+          ./gradlew assembleDebug
 
       - name: Upload APK
-        run: ls -la admin-mobile/app/build/outputs/apk/debug/ || echo "No APK folder"
+        run: ls -la app/build/outputs/apk/debug/
         uses: actions/upload-artifact@v4
         with:
-          name: SGAC-App-debug
+          name: SGAC-App
           path: admin-mobile/app/build/outputs/apk/debug/
