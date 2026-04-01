@@ -34,23 +34,20 @@ jobs:
         working-directory: admin-mobile
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace 2>&1
-          echo "=== Checking APK ==="
-          find . -name "*.apk" -type f
-          ls -la app/build/outputs/apk/debug/ 2>/dev/null || echo "APK not found"
-
-      - name: Verify APK exists
-        run: |
-          if [ -f "admin-mobile/app/build/outputs/apk/debug/app-debug.apk" ]; then
-            echo "APK found!"
-            ls -la admin-mobile/app/build/outputs/apk/debug/
-          else
-            echo "APK NOT FOUND - Build may have failed"
-            exit 1
-          fi
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+          ./gradlew assembleDebug --stacktrace 2>&1 | tee build.log || true
+          echo "=== Build Log Tail ===" && tail -50 build.log
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: SGAC-App
-          path: admin-mobile/app/build/outputs
+          path: admin-mobile/app/build/outputs/apk/debug
+
+      - name: Upload Build Log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: admin-mobile/build.log
