@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         
         webView.webViewClient = WebViewClient()
         
-        // Load from assets (the website files)
-        webView.loadUrl("file:///android_asset/index.html")
+        // Load from live website
+        webView.loadUrl("https://sgac-college-website.vercel.app/index.html")
     }
 }
