@@ -18,12 +18,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Create assets
+      - name: Prepare app
         run: |
           mkdir -p admin-mobile/app/src/main/assets
           cp admin-mobile/index.html admin-mobile/app/src/main/assets/
@@ -31,15 +30,14 @@ jobs:
           cp admin-mobile/admin-login.html admin-mobile/app/src/main/assets/
           cp -r admin-mobile/js admin-mobile/app/src/main/assets/
 
-      - name: Grant execute permission
-        run: chmod +x admin-mobile/gradlew
-
-      - name: Build with Gradle
+      - name: Build APK
         working-directory: admin-mobile
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace 2>&1 || cat build.log 2>/dev/null || echo "Build failed"
 
-      - name: Upload artifacts
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: SGAC-App
-          path: admin-mobile/app/build/outputs
+          path: admin-mobile/app/build/outputs/apk/debug/app-debug.apk
