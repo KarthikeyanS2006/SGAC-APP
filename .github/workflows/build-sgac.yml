@@ -13,23 +13,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install npm dependencies
-        run: npm install
-
-      - name: Install Capacitor
-        run: npm install @capacitor/core @capacitor/cli @capacitor/android
-
-      - name: Build web app
-        run: npm run build
-
-      - name: Sync Capacitor
-        run: npx cap sync android
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -39,20 +22,33 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Copy website files to Android assets
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp index.html android/app/src/main/assets/
+          cp History.html android/app/src/main/assets/
+          cp Vision.html android/app/src/main/assets/
+          cp Administration.html android/app/src/main/assets/
+          cp Honours.html android/app/src/main/assets/
+          cp Principal-Desk.html android/app/src/main/assets/
+          cp Library.html android/app/src/main/assets/
+          cp developer.html android/app/src/main/assets/
+          cp admin-login.html android/app/src/main/assets/
+          cp admin.html android/app/src/main/assets/
+          cp -r css android/app/src/main/assets/
+          cp -r js android/app/src/main/assets/
+          cp -r Activities android/app/src/main/assets/
+          cp -r Courses android/app/src/main/assets/
+          echo "Files copied to assets:"
+          ls -la android/app/src/main/assets/
+
       - name: Build APK
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon 2>&1 | tee build.log
-          echo "=== BUILD LOG ===" && cat build.log
-
-      - name: Check APK
-        run: |
-          echo "Checking APK folder..."
-          ls -la android/app/build/outputs/apk/debug/ 2>/dev/null && echo "APK found!" || echo "No APK folder"
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: SGAC-College-App
