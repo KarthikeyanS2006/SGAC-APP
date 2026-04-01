@@ -43,10 +43,16 @@ jobs:
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --info 2>&1 | tail -100
+          ./gradlew assembleDebug
+
+      - name: Check APK
+        run: |
+          echo "=== Checking APK ==="
+          ls -la android/app/build/outputs/apk/debug/
+          ls -la android/app/build/outputs/apk/debug/*.apk || echo "No APK found"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: SGAC-College-App
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/
