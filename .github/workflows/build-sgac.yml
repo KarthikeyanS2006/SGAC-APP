@@ -39,15 +39,7 @@ jobs:
           echo "=== Build Log Tail ===" && tail -50 build.log
 
       - name: Upload APK
-        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: SGAC-App
+          name: SGAC-App-debug
           path: admin-mobile/app/build/outputs/apk/debug
-
-      - name: Upload Build Log
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: admin-mobile/build.log
