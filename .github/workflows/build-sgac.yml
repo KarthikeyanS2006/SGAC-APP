@@ -43,7 +43,10 @@ jobs:
 
       - name: Build APK
         working-directory: admin-mobile
-        run: ./gradlew assembleDebug
+        run: |
+          chmod +x gradlew
+          chmod +x gradle/wrapper/gradle-wrapper.jar
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
