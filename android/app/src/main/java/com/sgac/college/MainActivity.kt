@@ -1,23 +1,25 @@
 package com.sgac.college
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.*
-import android.widget.Toast
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
     
     private lateinit var webView: WebView
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var progressDialog: ProgressDialog
-    private var currentUrl: String = "https://sgac-college-website-dnwi.vercel.app/"
+    private lateinit var progressBar: ProgressBar
+    private lateinit var loadingText: TextView
+    private lateinit var loadingContainer: FrameLayout
+    private val currentUrl = "https://sgac-college-website-dnwi.vercel.app/index.html"
     
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,17 +27,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         webView = findViewById(R.id.webView)
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
-        
-        progressDialog = ProgressDialog(this).apply {
-            setMessage("Loading...")
-            setCancelable(false)
-            show()
-        }
+        progressBar = findViewById(R.id.progressBar)
+        loadingText = findViewById(R.id.loadingText)
+        loadingContainer = findViewById(R.id.loadingContainer)
         
         webView.settings.apply {
             javaScriptEnabled = true
             domStorageEnabled = true
+            databaseEnabled = true
+            cacheMode = WebSettings.LOAD_DEFAULT
             allowFileAccess = true
             allowContentAccess = true
             loadWithOverviewMode = true
@@ -43,24 +43,13 @@ class MainActivity : AppCompatActivity() {
             builtInZoomControls = true
             displayZoomControls = false
             setSupportZoom(true)
-            databaseEnabled = true
-            cacheMode = WebSettings.LOAD_DEFAULT
-            mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+            mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             setSupportMultipleWindows(false)
+            loadWithOverviewMode = true
         }
         
         webView.webViewClient = WebViewClientHandler()
         webView.webChromeClient = ChromeClientHandler()
-        
-        swipeRefreshLayout.setColorSchemeResources(
-            android.R.color.holo_blue_bright,
-            android.R.color.holo_green_light,
-            android.R.color.holo_orange_light,
-            android.R.color.holo_red_light
-        )
-        swipeRefreshLayout.setOnRefreshListener {
-            webView.reload()
-        }
         
         webView.loadUrl(currentUrl)
     }
@@ -78,54 +67,52 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse(url)))
                     true
                 }
-                url.startsWith("whatsapp:") -> {
+                url.startsWith("https://wa.me") || url.startsWith("whatsapp:") -> {
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                     true
                 }
-                url.contains("vercel.app") || url.contains("sgacrmd.edu.in") -> {
-                    false
-                }
-                else -> {
-                    try {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                    } catch (e: Exception) {
-                        Toast.makeText(this@MainActivity, "Cannot open link", Toast.LENGTH_SHORT).show()
-                    }
-                    true
-                }
+                else -> false
             }
         }
         
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            if (!swipeRefreshLayout.isRefreshing) {
-                progressDialog.show()
-            }
+            loadingContainer.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
+            loadingText.text = "Loading website..."
         }
         
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            progressDialog.dismiss()
-            swipeRefreshLayout.isRefreshing = false
+            loadingContainer.visibility = View.GONE
         }
         
         override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
             super.onReceivedError(view, request, error)
             if (request?.isForMainFrame == true) {
-                swipeRefreshLayout.isRefreshing = false
+                loadingContainer.visibility = View.GONE
+                showErrorDialog()
             }
         }
     }
     
     inner class ChromeClientHandler : WebChromeClient() {
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
-            super.onProgressChanged(view, newProgress)
-            if (newProgress < 100 && !progressDialog.isShowing) {
-                progressDialog.show()
-            } else if (newProgress == 100) {
-                progressDialog.dismiss()
-            }
+            progressBar.progress = newProgress
+            loadingText.text = "Loading... $newProgress%"
         }
+    }
+    
+    private fun showErrorDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Loading Error")
+            .setMessage("Unable to load website. Please check your internet connection and try again.")
+            .setPositiveButton("Retry") { _, _ -> webView.loadUrl(currentUrl) }
+            .setNegativeButton("Open in Browser") { _, _ ->
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(currentUrl)))
+            }
+            .setCancelable(false)
+            .show()
     }
     
     @Deprecated("Deprecated in Java")
@@ -149,9 +136,6 @@ class MainActivity : AppCompatActivity() {
     
     override fun onDestroy() {
         webView.destroy()
-        if (progressDialog.isShowing) {
-            progressDialog.dismiss()
-        }
         super.onDestroy()
     }
 }
