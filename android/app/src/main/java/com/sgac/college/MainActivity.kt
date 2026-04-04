@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         webView.webViewClient = WebViewClientHandler()
-        webChromeClient = ChromeClientHandler()
+        webView.webChromeClient = ChromeClientHandler()
         
         swipeRefreshLayout.setColorSchemeResources(
             android.R.color.holo_blue_bright,
